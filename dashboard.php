@@ -1,6 +1,13 @@
 <?php
 // รวมไฟล์ db.php เพื่อเชื่อมต่อฐานข้อมูล
 include 'db.php';
+session_start(); // Start the session
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php"); // Redirect to login page if not logged in
+    exit();
+}
 
 // ฟังก์ชันเพื่อดึงข้อมูลจากตาราง
 function fetchData($conn, $table) {
@@ -14,6 +21,14 @@ $maintenance_records = fetchData($conn, 'maintenance_records');
 $insurance = fetchData($conn, 'insurance');
 $services = fetchData($conn, 'services');
 $owners = fetchData($conn, 'owners');
+
+// Handle logout logic
+if (isset($_GET['logout'])) {
+    session_unset(); // Remove all session variables
+    session_destroy(); // Destroy the session
+    header("Location: login.php"); // Redirect to login page after logging out
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +42,11 @@ $owners = fetchData($conn, 'owners');
 <body>
     <div class="container">
         <h1>ข้อมูลจากฐานข้อมูล CarManage</h1>
+
+        <!-- Logout button -->
+        <div class="logout-btn-container">
+            <a href="?logout=true"><button>ออกจากระบบ</button></a>
+        </div>
 
         <!-- ข้อมูลรถยนต์ -->
         <section>
