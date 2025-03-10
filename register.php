@@ -66,154 +66,91 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>สมัครสมาชิก - CarManage</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Style adjustments for registration page */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .register-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
-        }
-
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            text-align: left;
-            font-size: 16px;
-            color: #333;
-        }
-
-        input[type="text"],
-        input[type="password"],
-        input[type="email"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        textarea {
-            resize: vertical;
-            height: 100px;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .error,
-        .success {
-            margin: 20px 0;
-            padding: 10px;
-            color: white;
-            border-radius: 4px;
-            font-size: 16px;
-            text-align: center;
-        }
-
-        .error {
-            background-color: #f44336;
-        }
-
-        .success {
-            background-color: #4CAF50;
-        }
-
-        /* Additional responsive styling */
-        @media (max-width: 480px) {
-            .register-container {
-                padding: 20px;
-                width: 90%;
-            }
-
-            h2 {
-                font-size: 20px;
-            }
-
-            button {
-                padding: 10px;
-                font-size: 14px;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="register-container">
-        <h2>สมัครสมาชิก</h2>
+    <div class="auth-container">
+        <div class="auth-card fade-in">
+            <div class="auth-header">
+                <h2><i class="fas fa-user-plus"></i> สมัครสมาชิก</h2>
+                <p>กรอกข้อมูลเพื่อสร้างบัญชีใหม่</p>
+            </div>
 
-        <!-- Show success message -->
-        <?php if ($success): ?>
-            <div class="success"><?php echo $success; ?></div>
-        <?php endif; ?>
+            <?php if ($success): ?>
+                <div class="message success mb-3">
+                    <i class="fas fa-check-circle"></i>
+                    <?php echo $success; ?>
+                </div>
+            <?php endif; ?>
 
-        <!-- Show error message -->
-        <?php if ($error): ?>
-            <div class="error"><?php echo $error; ?></div>
-        <?php endif; ?>
+            <?php if ($error): ?>
+                <div class="message error mb-3">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <?php echo $error; ?>
+                </div>
+            <?php endif; ?>
 
-        <!-- Registration form -->
-        <form method="POST">
-            <label for="username">ชื่อผู้ใช้</label>
-            <input type="text" id="username" name="username" required>
+            <form method="POST" class="form-container">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i> ชื่อผู้ใช้
+                    </label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
 
-            <label for="password">รหัสผ่าน</label>
-            <input type="password" id="password" name="password" required>
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> รหัสผ่าน
+                    </label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
 
-            <label for="confirm_password">ยืนยันรหัสผ่าน</label>
-            <input type="password" id="confirm_password" name="confirm_password" required>
+                <div class="form-group">
+                    <label for="confirm_password">
+                        <i class="fas fa-lock"></i> ยืนยันรหัสผ่าน
+                    </label>
+                    <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+                </div>
 
-            <label for="email">อีเมล</label>
-            <input type="email" id="email" name="email" required>
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> อีเมล
+                    </label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
 
-            <label for="full_name">ชื่อเต็ม</label>
-            <input type="text" id="full_name" name="full_name" required>
+                <div class="form-group">
+                    <label for="full_name">
+                        <i class="fas fa-user-circle"></i> ชื่อเต็ม
+                    </label>
+                    <input type="text" id="full_name" name="full_name" class="form-control" required>
+                </div>
 
-            <label for="phone">เบอร์โทร</label>
-            <input type="text" id="phone" name="phone">
+                <div class="form-group">
+                    <label for="phone">
+                        <i class="fas fa-phone"></i> เบอร์โทร
+                    </label>
+                    <input type="text" id="phone" name="phone" class="form-control">
+                </div>
 
-            <label for="address">ที่อยู่</label>
-            <textarea id="address" name="address"></textarea>
+                <div class="form-group">
+                    <label for="address">
+                        <i class="fas fa-home"></i> ที่อยู่
+                    </label>
+                    <textarea id="address" name="address" class="form-control" rows="3"></textarea>
+                </div>
 
-            <button type="submit">สมัครสมาชิก</button>
-        </form>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i> สมัครสมาชิก
+                </button>
+            </form>
 
-        <!-- Back to Login button -->
-        <div class="back-to-login-container" style="margin-top: 20px;">
-            <a href="login.php"><button>กลับหน้าล็อกอิน</button></a>
+            <div class="auth-links mt-3">
+                <a href="login.php" class="btn btn-outline">
+                    <i class="fas fa-arrow-left"></i> กลับหน้าล็อกอิน
+                </a>
+            </div>
         </div>
     </div>
 </body>

@@ -36,153 +36,163 @@ if (isset($_GET['logout'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show Database Data - CarManage</title>
-    <link rel="stylesheet" href="style.css"> <!-- ลิงก์ไปยังไฟล์ CSS -->
+    <title>Dashboard - CarManage</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>ข้อมูลจากฐานข้อมูล CarManage</h1>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="dashboard.php" class="nav-brand">
+                <i class="fas fa-car"></i> CarManage
+            </a>
+            <div class="nav-links">
+                <a href="?logout=true" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+                </a>
+            </div>
+        </div>
+    </nav>
 
-        <!-- Logout button -->
-        <div class="logout-btn-container">
-            <a href="?logout=true"><button>ออกจากระบบ</button></a>
+    <div class="container">
+        <div class="dashboard fade-in">
+            <!-- Stats Cards -->
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?= count($cars) ?></h3>
+                    <p>รถยนต์ทั้งหมด</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?= count($maintenance_records) ?></h3>
+                    <p>รายการซ่อมบำรุง</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?= count($insurance) ?></h3>
+                    <p>ประกันภัย</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?= count($owners) ?></h3>
+                    <p>เจ้าของรถ</p>
+                </div>
+            </div>
         </div>
 
-        <!-- ข้อมูลรถยนต์ -->
-        <section>
-            <h2>ข้อมูลรถยนต์</h2>
-            <div class="btn-container">
-                <a href="crud_car.php"><button>จัดการรถยนต์</button></a>
+        <!-- Quick Actions -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2><i class="fas fa-bolt"></i> จัดการข้อมูล</h2>
             </div>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Make</th>
-                        <th>Model</th>
-                        <th>Year</th>
-                        <th>Color</th>
-                    </tr>
-                    <?php foreach ($cars as $car): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($car['id']); ?></td>
-                        <td><?= htmlspecialchars($car['make']); ?></td>
-                        <td><?= htmlspecialchars($car['model']); ?></td>
-                        <td><?= htmlspecialchars($car['year']); ?></td>
-                        <td><?= htmlspecialchars($car['color']); ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                </table>
+            <div class="card-body">
+                <div class="quick-actions">
+                    <a href="crud_car.php" class="btn btn-primary">
+                        <i class="fas fa-car"></i> จัดการรถยนต์
+                    </a>
+                    <a href="crud_maintenance_records.php" class="btn btn-primary">
+                        <i class="fas fa-tools"></i> จัดการซ่อมบำรุง
+                    </a>
+                    <a href="crud_insurance.php" class="btn btn-primary">
+                        <i class="fas fa-shield-alt"></i> จัดการประกันภัย
+                    </a>
+                    <a href="crud_services.php" class="btn btn-primary">
+                        <i class="fas fa-concierge-bell"></i> จัดการบริการ
+                    </a>
+                    <a href="crud_owners.php" class="btn btn-primary">
+                        <i class="fas fa-users"></i> จัดการเจ้าของรถ
+                    </a>
+                </div>
             </div>
-        </section>
+        </div>
 
-        <!-- ข้อมูลการบำรุงรักษา -->
-        <section>
-            <h2>ข้อมูลการบำรุงรักษา</h2>
-            <div class="btn-container">
-                <a href="crud_maintenance_records.php"><button>จัดการการบำรุงรักษา</button></a>
+        <!-- Recent Cars -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2><i class="fas fa-car"></i> รถยนต์ล่าสุด</h2>
             </div>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Car ID</th>
-                        <th>Maintenance Date</th>
-                        <th>Details</th>
-                    </tr>
-                    <?php foreach ($maintenance_records as $record): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($record['id']); ?></td>
-                        <td><?= htmlspecialchars($record['car_id']); ?></td>
-                        <td><?= htmlspecialchars($record['maintenance_date']); ?></td>
-                        <td><?= htmlspecialchars($record['details']); ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                </table>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>ยี่ห้อ</th>
+                            <th>รุ่น</th>
+                            <th>ปี</th>
+                            <th>สี</th>
+                        </tr>
+                        <?php foreach (array_slice($cars, 0, 5) as $car): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($car['id']) ?></td>
+                            <td><?= htmlspecialchars($car['make']) ?></td>
+                            <td><?= htmlspecialchars($car['model']) ?></td>
+                            <td><?= htmlspecialchars($car['year']) ?></td>
+                            <td><?= htmlspecialchars($car['color']) ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
             </div>
-        </section>
+        </div>
 
-        <!-- ข้อมูลประกันภัย -->
-        <section>
-            <h2>ข้อมูลประกันภัย</h2>
-            <div class="btn-container">
-                <a href="crud_insurance.php"><button>จัดการประกันภัย</button></a>
+        <!-- Recent Maintenance -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2><i class="fas fa-tools"></i> การซ่อมบำรุงล่าสุด</h2>
             </div>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Car ID</th>
-                        <th>Provider</th>
-                        <th>Policy Number</th>
-                        <th>Expiration Date</th>
-                    </tr>
-                    <?php foreach ($insurance as $ins): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($ins['id']); ?></td>
-                        <td><?= htmlspecialchars($ins['car_id']); ?></td>
-                        <td><?= htmlspecialchars($ins['provider']); ?></td>
-                        <td><?= htmlspecialchars($ins['policy_number']); ?></td>
-                        <td><?= htmlspecialchars($ins['expiration_date']); ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                </table>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>รถยนต์</th>
+                            <th>วันที่</th>
+                            <th>รายละเอียด</th>
+                        </tr>
+                        <?php foreach (array_slice($maintenance_records, 0, 5) as $record): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($record['id']) ?></td>
+                            <td><?= htmlspecialchars($record['car_id']) ?></td>
+                            <td><?= htmlspecialchars($record['maintenance_date']) ?></td>
+                            <td><?= htmlspecialchars($record['details']) ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
             </div>
-        </section>
-
-        <!-- ข้อมูลบริการ -->
-        <section>
-            <h2>ข้อมูลบริการ</h2>
-            <div class="btn-container">
-                <a href="crud_services.php"><button>จัดการบริการ</button></a>
-            </div>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Car ID</th>
-                        <th>Service Date</th>
-                        <th>Description</th>
-                        <th>Cost</th>
-                    </tr>
-                    <?php foreach ($services as $service): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($service['id']); ?></td>
-                        <td><?= htmlspecialchars($service['car_id']); ?></td>
-                        <td><?= htmlspecialchars($service['service_date']); ?></td>
-                        <td><?= htmlspecialchars($service['description']); ?></td>
-                        <td><?= htmlspecialchars($service['cost']); ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                </table>
-            </div>
-        </section>
-
-        <!-- ข้อมูลเจ้าของรถ -->
-        <section>
-            <h2>ข้อมูลเจ้าของรถ</h2>
-            <div class="btn-container">
-                <a href="crud_owners.php"><button>จัดการเจ้าของรถ</button></a>
-            </div>
-            <div class="table-container">
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                    </tr>
-                    <?php foreach ($owners as $owner): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($owner['id']); ?></td>
-                        <td><?= htmlspecialchars($owner['name']); ?></td>
-                        <td><?= htmlspecialchars($owner['email']); ?></td>
-                        <td><?= htmlspecialchars($owner['phone']); ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                </table>
-            </div>
-        </section>
+        </div>
     </div>
+
+    <style>
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .quick-actions .btn {
+            width: 100%;
+        }
+    </style>
 </body>
 </html>

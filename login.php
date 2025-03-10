@@ -43,105 +43,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - CarManage</title>
+    <title>เข้าสู่ระบบ - CarManage</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Style adjustments for login page */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .login-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .error {
-            color: red;
-            margin-bottom: 20px;
-        }
-
-        .register-link {
-            margin-top: 10px;
-            display: block;
-            font-size: 14px;
-        }
-
-        .register-link a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-
-        .register-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="login-container">
-        <h2>เข้าสู่ระบบ</h2>
+    <div class="auth-container">
+        <div class="auth-card fade-in">
+            <div class="auth-header">
+                <h2><i class="fas fa-car"></i> CarManage</h2>
+                <p>ระบบจัดการข้อมูลรถยนต์</p>
+            </div>
 
-        <!-- Display error message if any -->
-        <?php if (isset($error)): ?>
-            <div class="error"><?php echo $error; ?></div>
-        <?php endif; ?>
+            <?php if (isset($error)): ?>
+                <div class="message error mb-3">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <?php echo $error; ?>
+                </div>
+            <?php endif; ?>
 
-        <!-- Login form -->
-        <form method="POST">
-            <label for="username">ชื่อผู้ใช้</label>
-            <input type="text" id="username" name="username" required>
+            <form method="POST" class="form-container">
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i> ชื่อผู้ใช้
+                    </label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
 
-            <label for="password">รหัสผ่าน</label>
-            <input type="password" id="password" name="password" required>
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> รหัสผ่าน
+                    </label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
 
-            <button type="submit">เข้าสู่ระบบ</button>
-        </form>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ
+                </button>
+            </form>
 
-        <!-- Link to the registration page -->
-        <div class="register-link">
-            <p>ยังไม่มีบัญชี? <a href="register.php">สมัครสมาชิก</a></p>
+            <div class="auth-links mt-3">
+                <p>ยังไม่มีบัญชี? <a href="register.php" class="text-primary">สมัครสมาชิก</a></p>
+            </div>
         </div>
     </div>
 </body>
